@@ -56,7 +56,7 @@ BuildArch:      noarch
 %endif
 Provides:       jaxp_transform_impl
 Requires:       jaxp_parser_impl
-Requires:	/usr/sbin/update-alternatives
+Requires:	update-alternatives
 Requires:	xerces-j2 >= 0:2.7.1
 Requires:	xml-commons-jaxp-1.3-apis >= 0:1.3.03
 BuildRequires:  jpackage-utils >= 0:1.6
