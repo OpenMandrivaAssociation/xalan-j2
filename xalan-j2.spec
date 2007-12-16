@@ -34,7 +34,7 @@
 
 Name:           xalan-j2
 Version:        2.7.0
-Release:        %mkrel 2.7
+Release:        %mkrel 2.8
 Epoch:          0
 Summary:        Java XSLT processor
 License:        Apache Software License
@@ -59,7 +59,7 @@ Requires:       jaxp_parser_impl
 Requires:	update-alternatives
 Requires:	xerces-j2 >= 0:2.7.1
 Requires:	xml-commons-jaxp-1.3-apis >= 0:1.3.03
-BuildRequires:  jpackage-utils >= 0:1.6
+BuildRequires:  java-rpmbuild >= 0:1.6
 BuildRequires:	java-devel
 BuildRequires:  ant
 BuildRequires:  bcel
