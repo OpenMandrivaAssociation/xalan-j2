@@ -46,7 +46,6 @@ URL:            http://xalan.apache.org/
 Group:          Development/Java
 #Vendor:         JPackage Project
 #Distribution:   JPackage
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 %if %{gcj_support}
 Requires(post): java-gcj-compat
 Requires(postun): java-gcj-compat
