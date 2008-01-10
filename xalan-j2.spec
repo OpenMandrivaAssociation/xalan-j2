@@ -37,7 +37,7 @@
 
 Name:           xalan-j2
 Version:        2.7.0
-Release:        %mkrel 7.0.2
+Release:        %mkrel 7.0.3
 Epoch:          0
 Summary:        Java XSLT processor
 License:        Apache Software License
@@ -73,10 +73,7 @@ BuildRequires:  xerces-j2 >= 0:2.7.1
 BuildRequires:  xml-commons-jaxp-1.3-apis >= 0:1.3.03
 
 %if %{gcj_support}
-#BuildRequires:    gnu-crypto
-BuildRequires:    java-gcj-compat-devel >= 0:1.0.33
-#Requires(post):   java-gcj-compat >= 0:1.0.33
-#Requires(postun): java-gcj-compat >= 0:1.0.33
+BuildRequires:    java-gcj-compat-devel
 %endif
 
 %description
@@ -119,9 +116,6 @@ Documentation for %{name}.
 Summary:        Javadoc for %{name}
 Group:          Development/Java
 BuildRequires:  java-javadoc
-#Requires(post): /bin/rm
-#Requires(post): /bin/ln
-#Requires(postun): /bin/rm
 
 %description    javadoc
 Javadoc for %{name}.
@@ -134,10 +128,7 @@ Requires:       %{name} = %{epoch}:%{version}-%{release}, servlet
 BuildRequires:  servlet
 
 %if %{gcj_support}
-#BuildRequires:    gnu-crypto
 BuildRequires:    java-gcj-compat-devel
-#Requires(post):   java-gcj-compat
-#Requires(postun): java-gcj-compat
 %endif
 
 %description    demo
@@ -237,7 +228,6 @@ ln -s %{_sysconfdir}/alternatives \
 %endif
 
 %if %{gcj_support}
-#export CLASSPATH=$(build-classpath gnu-crypto)
 %{_bindir}/aot-compile-rpm --exclude %{_datadir}/%{name}/%{name}-servlet.war
 #%{_bindir}/aot-compile-rpm
 %endif
