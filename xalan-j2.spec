@@ -29,7 +29,7 @@
 #
 
 #%define gcj_support %{?_with_gcj_support:1}%{!?_with_gcj_support:%{?_without_gcj_support:0}%{!?_without_gcj_support:%{?_gcj_support:%{_gcj_support}}%{!?_gcj_support:0}}}
-%define _with_bootstrap 1
+%define _with_bootstrap 0
 %define gcj_support 1
 %define bootstrap %{?_with_bootstrap:1}%{!?_with_bootstrap:%{?_without_bootstrap:0}%{!?_without_bootstrap:%{?_bootstrap:%{_bootstrap}}%{!?_bootstrap:0}}}
 
@@ -38,7 +38,7 @@
 
 Name:           xalan-j2
 Version:        2.7.0
-Release:        %mkrel 7.0.4
+Release:        %mkrel 7.0.5
 Epoch:          0
 Summary:        Java XSLT processor
 License:        Apache Software License
