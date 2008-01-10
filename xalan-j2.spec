@@ -29,6 +29,7 @@
 #
 
 #%define gcj_support %{?_with_gcj_support:1}%{!?_with_gcj_support:%{?_without_gcj_support:0}%{!?_without_gcj_support:%{?_gcj_support:%{_gcj_support}}%{!?_gcj_support:0}}}
+%define _with_bootstrap 1
 %define gcj_support 1
 %define bootstrap %{?_with_bootstrap:1}%{!?_with_bootstrap:%{?_without_bootstrap:0}%{!?_without_bootstrap:%{?_bootstrap:%{_bootstrap}}%{!?_bootstrap:0}}}
 
@@ -37,7 +38,7 @@
 
 Name:           xalan-j2
 Version:        2.7.0
-Release:        %mkrel 7.0.3
+Release:        %mkrel 7.0.4
 Epoch:          0
 Summary:        Java XSLT processor
 License:        Apache Software License
@@ -68,8 +69,9 @@ BuildRequires:  jlex
 BuildRequires:  regexp
 BuildRequires:  sed
 BuildRequires:  servletapi5
-%endif
 BuildRequires:  xerces-j2 >= 0:2.7.1
+%endif
+#BuildRequires:  xerces-j2 >= 0:2.7.1
 BuildRequires:  xml-commons-jaxp-1.3-apis >= 0:1.3.03
 
 %if %{gcj_support}
@@ -228,8 +230,8 @@ ln -s %{_sysconfdir}/alternatives \
 %endif
 
 %if %{gcj_support}
-%{_bindir}/aot-compile-rpm --exclude %{_datadir}/%{name}/%{name}-servlet.war
-#%{_bindir}/aot-compile-rpm
+#%{_bindir}/aot-compile-rpm --exclude %{_datadir}/%{name}/%{name}-servlet.war
+%{_bindir}/aot-compile-rpm
 %endif
 
 %clean
