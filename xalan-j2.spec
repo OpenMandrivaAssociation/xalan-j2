@@ -28,9 +28,8 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-#%define gcj_support %{?_with_gcj_support:1}%{!?_with_gcj_support:%{?_without_gcj_support:0}%{!?_without_gcj_support:%{?_gcj_support:%{_gcj_support}}%{!?_gcj_support:0}}}
 %define _with_bootstrap 0
-%define gcj_support 1
+%define gcj_support 0
 %define bootstrap %{?_with_bootstrap:1}%{!?_with_bootstrap:%{?_without_bootstrap:0}%{!?_without_bootstrap:%{?_bootstrap:%{_bootstrap}}%{!?_bootstrap:0}}}
 
 %define section free
@@ -38,7 +37,7 @@
 
 Name:           xalan-j2
 Version:        2.7.0
-Release:        %mkrel 7.0.5
+Release:        %mkrel 7.0.6
 Epoch:          0
 Summary:        Java XSLT processor
 License:        Apache Software License
@@ -96,10 +95,7 @@ Requires:       regexp
 Requires:       jaxp_parser_impl
 
 %if %{gcj_support}
-#BuildRequires:    gnu-crypto
 BuildRequires:    java-gcj-compat-devel
-#Requires(post):   java-gcj-compat
-#Requires(postun): java-gcj-compat
 %endif
 
 %description    xsltc
@@ -229,32 +225,22 @@ ln -s %{_sysconfdir}/alternatives \
   $RPM_BUILD_ROOT%{_javadir}/jaxp_transform_impl.jar
 %endif
 
-%if %{gcj_support}
-#%{_bindir}/aot-compile-rpm --exclude %{_datadir}/%{name}/%{name}-servlet.war
-%{_bindir}/aot-compile-rpm
-%endif
+%{gcj_compile}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
 
 %post
 update-alternatives --install %{_javadir}/jaxp_transform_impl.jar \
   jaxp_transform_impl %{_javadir}/%{name}.jar 30
 
 %if %{gcj_support}
-if [ -x %{_bindir}/rebuild-gcj-db ]
-then
-  %{_bindir}/rebuild-gcj-db
-fi
+%{update_gcjdb}
 %endif
 
 %if %{gcj_support}
 %postun
-if [ -x %{_bindir}/rebuild-gcj-db ]
-then
-  %{_bindir}/rebuild-gcj-db
-fi
+${clean_gcjdb}
 %endif
 
 %preun
@@ -287,34 +273,22 @@ fi
 
 %if %{gcj_support}
 %post xsltc
-if [ -x %{_bindir}/rebuild-gcj-db ]
-then
-  %{_bindir}/rebuild-gcj-db
-fi
+%{update_gcjdb}
 %endif
 
 %if %{gcj_support}
 %postun xsltc
-if [ -x %{_bindir}/rebuild-gcj-db ]
-then
-  %{_bindir}/rebuild-gcj-db
-fi
+%{clean_gcjdb}
 %endif
 
 %if %{gcj_support}
 %post demo
-if [ -x %{_bindir}/rebuild-gcj-db ]
-then
-  %{_bindir}/rebuild-gcj-db
-fi
+%{update_gcjdb}
 %endif
 
 %if %{gcj_support}
 %postun demo
-if [ -x %{_bindir}/rebuild-gcj-db ]
-then
-  %{_bindir}/rebuild-gcj-db
-fi
+%{clean_gcjdb}
 %endif
 %endif
 
