@@ -37,7 +37,7 @@
 
 Name:           xalan-j2
 Version:        2.7.0
-Release:        %mkrel 7.0.6
+Release:        %mkrel 7.0.7
 Epoch:          0
 Summary:        Java XSLT processor
 License:        Apache Software License
