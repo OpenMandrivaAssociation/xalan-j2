@@ -32,24 +32,25 @@
 %define gcj_support 0
 %define bootstrap %{?_with_bootstrap:1}%{!?_with_bootstrap:%{?_without_bootstrap:0}%{!?_without_bootstrap:%{?_bootstrap:%{_bootstrap}}%{!?_bootstrap:0}}}
 
-%define section free
-%define cvs_version 2_7_0
+%define cvs_version 2_7_1
 
 Name:           xalan-j2
-Version:        2.7.0
-Release:        %mkrel 7.0.10
-Epoch:          0
+Version:        2.7.1
+Release:        4
 Summary:        Java XSLT processor
 License:        Apache Software License
-Source0:        http://www.apache.org/dist/xml/xalan-j/xalan-j_%{cvs_version}-src.tar.bz2
+Source0:        http://www.apache.org/dist/xml/xalan-j/xalan-j_2_7_1-src.tar.gz
+Source1:        %{name}-serializer-MANIFEST.MF
 Patch0:         %{name}-noxsltcdeps.patch
 Patch1:         %{name}-manifest.patch
 Patch2:         %{name}-crosslink.patch
+#This patch uses xalan-j2-serializer.jar in the MANIFEST files instead of serializer
+Patch3:		%{name}-src-MANIFEST-MF.patch
 URL:            http://xalan.apache.org/
 Group:          Development/Java
 #Vendor:         JPackage Project
 #Distribution:   JPackage
-#BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %if ! %{gcj_support}
 BuildArch:      noarch
@@ -67,11 +68,11 @@ BuildRequires:  bcel
 BuildRequires:  jlex
 BuildRequires:  regexp
 BuildRequires:  sed
-BuildRequires:  servletapi5
+BuildRequires:  servlet25
 BuildRequires:  xerces-j2 >= 0:2.7.1
+BuildRequires:  xml-stylebook
 %endif
-#BuildRequires:  xerces-j2 >= 0:2.7.1
-BuildRequires:  xml-commons-jaxp-1.3-apis >= 0:1.3.03
+BuildRequires:  xml-commons-apis >= 0:1.3
 
 %if %{gcj_support}
 BuildRequires:    java-gcj-compat-devel
@@ -136,8 +137,9 @@ Demonstrations and samples for %{name}.
 %prep
 %setup -q -n xalan-j_%{cvs_version}
 %patch0 -p0
-%patch1 -p0
-%patch2 -p0
+#%patch3 -p0
+#%patch1 -p0
+#%patch2 -p0
 # Remove all binary libs, except ones needed to build docs and N/A elsewhere.
 for j in $(find . -name "*.jar"); do
         rm $j
@@ -185,6 +187,12 @@ export CLASSPATH=$(build-classpath servletapi5)
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
+# inject OSGi manifests
+mkdir -p META-INF
+cp -p %{SOURCE1} META-INF/MANIFEST.MF
+touch META-INF/MANIFEST.MF
+zip -u build/serializer.jar META-INF/MANIFEST.MF
 
 # jars
 install -d -m 755 $RPM_BUILD_ROOT%{_javadir}
@@ -294,7 +302,7 @@ fi
 
 %files
 %defattr(0644,root,root,0755)
-%doc KEYS licenses/xalan.LICENSE.txt licenses/xalan.NOTICE.txt licenses/serializer.LICENSE.txt licenses/serializer.NOTICE.txt
+%doc KEYS LICENSE.txt NOTICE.txt readme.html
 %{_javadir}/%{name}-%{version}.jar
 %{_javadir}/%{name}.jar
 %{_javadir}/%{name}-serializer-%{version}.jar
