@@ -29,7 +29,7 @@
 #
 
 %define _with_bootstrap 0
-%define gcj_support 0
+%define gcj_support 1
 %define bootstrap %{?_with_bootstrap:1}%{!?_with_bootstrap:%{?_without_bootstrap:0}%{!?_without_bootstrap:%{?_bootstrap:%{_bootstrap}}%{!?_bootstrap:0}}}
 
 %define cvs_version 2_7_1
@@ -73,6 +73,7 @@ BuildRequires:  xerces-j2 >= 0:2.7.1
 BuildRequires:  xml-stylebook
 %endif
 BuildRequires:  xml-commons-apis >= 0:1.3
+BuildRequires:	zip
 
 %if %{gcj_support}
 BuildRequires:    java-gcj-compat-devel
