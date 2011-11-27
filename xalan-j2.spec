@@ -32,7 +32,7 @@
 
 Name:           xalan-j2
 Version:        2.7.1
-Release:        3
+Release:        5
 Summary:        Java XSLT processor
 # samples/servlet/ApplyXSLTException.java is ASL 1.1
 # src/org/apache/xpath/domapi/XPathStylesheetDOM3Exception.java is W3C
