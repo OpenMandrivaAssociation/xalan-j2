@@ -154,7 +154,7 @@ ant \
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 # inject OSGi manifests
 mkdir -p META-INF
@@ -163,37 +163,37 @@ touch META-INF/MANIFEST.MF
 zip -u build/serializer.jar META-INF/MANIFEST.MF
 
 # jars
-install -d -m 755 $RPM_BUILD_ROOT%{_javadir}
+install -d -m 755 %{buildroot}%{_javadir}
 install -p -m 644 build/xalan-interpretive.jar \
-  $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
+  %{buildroot}%{_javadir}/%{name}.jar
 install -p -m 644 build/xsltc.jar \
-  $RPM_BUILD_ROOT%{_javadir}/xsltc.jar
+  %{buildroot}%{_javadir}/xsltc.jar
 install -p -m 644 build/serializer.jar \
-  $RPM_BUILD_ROOT%{_javadir}/%{name}-serializer.jar
+  %{buildroot}%{_javadir}/%{name}-serializer.jar
 
 # javadoc
-install -d -m 755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}
-cp -pr build/docs/apidocs/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}
+install -d -m 755 %{buildroot}%{_javadocdir}/%{name}
+cp -pr build/docs/apidocs/* %{buildroot}%{_javadocdir}/%{name}
 rm -rf build/docs/apidocs
 
 # demo
-install -d -m 755 $RPM_BUILD_ROOT%{_datadir}/%{name}
+install -d -m 755 %{buildroot}%{_datadir}/%{name}
 install -p -m 644 build/xalansamples.jar \
-  $RPM_BUILD_ROOT%{_datadir}/%{name}/%{name}-samples.jar
+  %{buildroot}%{_datadir}/%{name}/%{name}-samples.jar
 install -p -m 644 build/xalanservlet.war \
-  $RPM_BUILD_ROOT%{_datadir}/%{name}/%{name}-servlet.war
-cp -pr samples $RPM_BUILD_ROOT%{_datadir}/%{name}
+  %{buildroot}%{_datadir}/%{name}/%{name}-servlet.war
+cp -pr samples %{buildroot}%{_datadir}/%{name}
 
 # fix link between manual and javadoc
 (cd build/docs; ln -sf %{_javadocdir}/%{name} apidocs)
 
 # jaxp_transform_impl ghost symlink
 ln -s %{_sysconfdir}/alternatives \
-  $RPM_BUILD_ROOT%{_javadir}/jaxp_transform_impl.jar
+  %{buildroot}%{_javadir}/jaxp_transform_impl.jar
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 
 %post
