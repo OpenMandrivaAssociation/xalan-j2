@@ -1,28 +1,19 @@
---- src/MANIFEST.MF.orig	2004-03-21 15:54:40.000000000 +0100
-+++ src/MANIFEST.MF	2004-03-21 15:54:25.000000000 +0100
-@@ -1,7 +1,5 @@
+--- src/MANIFEST.MF.sav	2007-02-12 13:39:18.000000000 +0100
++++ src/MANIFEST.MF	2007-02-12 13:40:07.000000000 +0100
+@@ -1,8 +1,6 @@
  Manifest-Version: 1.0
--Created-By: @java.version@ (@java.vendor@)
+ Created-By: @java.version@ (@java.vendor@)
  Main-Class: org.apache.xalan.xslt.Process
--Class-Path: xercesImpl.jar xml-apis.jar
- 
- 
- Name: org/apache/xalan
-@@ -28,44 +26,3 @@
- Implementation-Vendor: Apache Software Foundation
- Implementation-URL: http://xml.apache.org/xalan-j/dist/
- 
--Name: org/apache/xalan/xsltc
--Comment: Main XSLTC engine implementing TrAX/JAXP
--Specification-Title: Java API for XML Processing
--Specification-Vendor: Sun Microsystems Inc.
--Specification-Version: 1.2
--Implementation-Title: org.apache.xalan.xsltc
--Implementation-Version: @impl.version@
--Implementation-Vendor: Apache Software Foundation
--Implementation-URL: http://xml.apache.org/xalan-j/dist/
+-Class-Path: xercesImpl.jar xml-apis.jar serializer.jar
 -
--Name: runtime 
+ 
+ Name: org/apache/xalan/
+ Comment: Main Xalan engine implementing TrAX/JAXP
+@@ -38,33 +36,3 @@
+ Implementation-Vendor: Apache Software Foundation
+ Implementation-URL: http://xml.apache.org/xalan-j/
+ 
+-Name: java_cup/runtime/ 
 -Comment: Runtime component of JCup 
 -Specification-Title: Runtime component of JCup
 -Specification-Vendor: Princeton University 
@@ -32,7 +23,7 @@
 -Implementation-Vendor: Princeton University  
 -Implementation-URL: http://www.cs.princeton.edu/~appel/modern/java/CUP/ 
 -
--Name: org/apache/bcel
+-Name: org/apache/bcel/
 -Comment: Byte Code Engineering Library 
 -Specification-Title: Byte Code Engineering Library 
 -Specification-Vendor: Markus Dahm 
@@ -42,7 +33,7 @@
 -Implementation-Vendor: Apache Software Foundation
 -Implementation-URL: http://jakarta.apache.org/bcel
 -
--Name: org/apache/regexp
+-Name: org/apache/regexp/
 -Comment: Java Regular Expression package 
 -Specification-Title: Java Regular Expression package 
 -Specification-Vendor: Apache Software Foundation 
@@ -52,40 +43,40 @@
 -Implementation-Vendor: Apache Software Foundation
 -Implementation-URL: http://jakarta.apache.org/regexp
 -
--
---- src/manifest.xsltc.orig	2004-03-21 15:54:59.000000000 +0100
-+++ src/manifest.xsltc	2004-03-21 15:54:25.000000000 +0100
-@@ -1,5 +1,4 @@
+--- src/MANIFEST.SERIALIZER.sav	2007-02-12 13:39:24.000000000 +0100
++++ src/MANIFEST.SERIALIZER	2007-02-12 13:40:15.000000000 +0100
+@@ -1,7 +1,6 @@
  Manifest-Version: 1.0
--Created-By: @java.version@ (@java.vendor@)
+ Created-By: @java.version@ (@java.vendor@)
+ Main-Class: org.apache.xml.serializer.Version
+-Class-Path: xml-apis.jar
  
- Name: org/apache/xalan/xsltc
+ Name: org/apache/xml/serializer/
+ Comment: Serializer to write out XML, HTML etc. as a stream of characters from an input DOM or from input SAX events.
+--- src/manifest.xalan-interpretive.sav	2007-02-12 13:39:31.000000000 +0100
++++ src/manifest.xalan-interpretive	2007-02-12 13:40:24.000000000 +0100
+@@ -1,7 +1,6 @@
+ Manifest-Version: 1.0
+ Created-By: @java.version@ (@java.vendor@)
+ Main-Class: org.apache.xalan.xslt.Process
+-Class-Path: xercesImpl.jar xml-apis.jar serializer.jar
+ 
+ Name: org/apache/xalan/
+ Comment: Main Xalan engine implementing TrAX/JAXP
+--- src/manifest.xsltc.sav	2007-02-12 13:39:37.000000000 +0100
++++ src/manifest.xsltc	2007-02-12 13:40:43.000000000 +0100
+@@ -1,6 +1,5 @@
+ Manifest-Version: 1.0
+ Created-By: @java.version@ (@java.vendor@)
+-Class-Path: xercesImpl.jar xml-apis.jar serializer.jar
+ 
+ Name: org/apache/xalan/xsltc/
  Comment: Main XSLTC engine implementing TrAX/JAXP
-@@ -11,54 +10,3 @@
+@@ -19,33 +18,3 @@
  Implementation-Vendor: Apache Software Foundation
  Implementation-URL: http://xml.apache.org/xalan-j/dist/
  
--Name: JLex 
--Comment: A Lexical Analyzer for Java 
--Specification-Title: A Lexical Analyzer for Java 
--Specification-Vendor: Princeton University 
--Specification-Version: 1.2.5 
--Implementation-Title: JLex 
--Implementation-Version: @impl.version@
--Implementation-Vendor: Princeton University 
--Implementation-URL: http://www.cs.princeton.edu/~appel/modern/java/JLex/
--
--Name: java_cup 
--Comment: Parser Generator for Java 
--Specification-Title: Parser Generator for Java 
--Specification-Vendor: Princeton University 
--Specification-Version: 0.10k 
--Implementation-Title: java_cup 
--Implementation-Version: @impl.version@
--Implementation-Vendor: Princeton University 
--Implementation-URL: http://www.cs.princeton.edu/~appel/modern/java/CUP/ 
--
--Name: runtime 
+-Name: java_cup/runtime/
 -Comment: Runtime component of JCup 
 -Specification-Title: Runtime component of JCup
 -Specification-Vendor: Princeton University 
@@ -95,8 +86,7 @@
 -Implementation-Vendor: Princeton University  
 -Implementation-URL: http://www.cs.princeton.edu/~appel/modern/java/CUP/ 
 -
--
--Name: org/apache/bcel
+-Name: org/apache/bcel/
 -Comment: Byte Code Engineering Library 
 -Specification-Title: Byte Code Engineering Library 
 -Specification-Vendor: Markus Dahm 
@@ -106,7 +96,7 @@
 -Implementation-Vendor: Apache Software Foundation
 -Implementation-URL: http://jakarta.apache.org/bcel
 -
--Name: org/apache/regexp
+-Name: org/apache/regexp/
 -Comment: Java Regular Expression package 
 -Specification-Title: Java Regular Expression package 
 -Specification-Vendor: Apache Software Foundation 
