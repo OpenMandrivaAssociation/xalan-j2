@@ -1,47 +1,15 @@
-# Copyright (c) 2000-2007, JPackage Project
-# All rights reserved.
-#
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions
-# are met:
-#
-# 1. Redistributions of source code must retain the above copyright
-#    notice, this list of conditions and the following disclaimer.
-# 2. Redistributions in binary form must reproduce the above copyright
-#    notice, this list of conditions and the following disclaimer in the
-#    documentation and/or other materials provided with the
-#    distribution.
-# 3. Neither the name of the JPackage Project nor the names of its
-#    contributors may be used to endorse or promote products derived
-#    from this software without specific prior written permission.
-#
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-# OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#
-
 %define _with_bootstrap 0
-%define gcj_support 0
 %define bootstrap %{?_with_bootstrap:1}%{!?_with_bootstrap:%{?_without_bootstrap:0}%{!?_without_bootstrap:%{?_bootstrap:%{_bootstrap}}%{!?_bootstrap:0}}}
 
-%define section free
-%define cvs_version 2_7_0
+%define cvs_version %(echo %version |sed -e 's,\\\.,_,g')
 
 Name:           xalan-j2
-Version:        2.7.0
-Release:        %mkrel 7.0.12
+Version:        2.7.1
+Release:        1
 Epoch:          0
 Summary:        Java XSLT processor
 License:        Apache Software License
-Source0:        http://www.apache.org/dist/xml/xalan-j/xalan-j_%{cvs_version}-src.tar.bz2
+Source0:        http://archive.apache.org/dist/xml/xalan-j/source/xalan-j_%{cvs_version}-src.tar.gz
 Patch0:         %{name}-noxsltcdeps.patch
 Patch1:         %{name}-manifest.patch
 Patch2:         %{name}-crosslink.patch
@@ -51,15 +19,13 @@ Group:          Development/Java
 #Distribution:   JPackage
 #BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
-%if ! %{gcj_support}
 BuildArch:      noarch
-%endif
 Provides:       jaxp_transform_impl
 Requires:       jaxp_parser_impl
 Requires(post):  update-alternatives
 Requires(preun): update-alternatives
 BuildRequires:  jpackage-utils >= 0:1.6
-BuildRequires:  java-rpmbuild
+BuildRequires:  java-1.6.0-openjdk-devel
 BuildRequires:  ant
 %if ! %{bootstrap}
 BuildRequires:  java_cup
@@ -72,10 +38,6 @@ BuildRequires:  xerces-j2 >= 0:2.7.1
 %endif
 #BuildRequires:  xerces-j2 >= 0:2.7.1
 BuildRequires:  xml-commons-jaxp-1.3-apis >= 0:1.3.03
-
-%if %{gcj_support}
-BuildRequires:    java-gcj-compat-devel
-%endif
 
 %description
 Xalan is an XSLT processor for transforming XML documents into HTML,
@@ -93,10 +55,6 @@ Requires:       bcel
 Requires:       jlex
 Requires:       regexp
 Requires:       jaxp_parser_impl
-
-%if %{gcj_support}
-BuildRequires:    java-gcj-compat-devel
-%endif
 
 %description    xsltc
 The XSLT Compiler is a Java-based tool for compiling XSLT stylesheets into
@@ -125,19 +83,20 @@ Group:          Development/Java
 Requires:       %{name} = %{epoch}:%{version}-%{release}, servlet
 BuildRequires:  servlet
 
-%if %{gcj_support}
-BuildRequires:    java-gcj-compat-devel
-%endif
-
 %description    demo
 Demonstrations and samples for %{name}.
 %endif
 
+%track
+prog %name = {
+	url = http://xalan.apache.org/xalan-j/index.html
+	version = %version
+	regex = "The current stable version for download is (__VER__)"
+}
+
 %prep
 %setup -q -n xalan-j_%{cvs_version}
-%patch0 -p0
-%patch1 -p0
-%patch2 -p0
+%apply_patches
 # Remove all binary libs, except ones needed to build docs and N/A elsewhere.
 for j in $(find . -name "*.jar"); do
         rm $j
@@ -162,15 +121,16 @@ ln -sf $(build-classpath jlex) JLex.jar
 #ln -sf $(build-classpath xml-stylebook) stylebook-1.0-b3_xalan-2.jar
 popd
 export CLASSPATH=$(build-classpath servletapi5)
+export JAVA_HOME=%_prefix/lib/jvm/java-1.6.0
 
 %if %{bootstrap}
-%{ant} \
+ant \
   -Djava.awt.headless=true \
   -Dapi.j2se=%{_javadocdir}/java \
   -Dbuild.xalan-interpretive.jar=build/xalan-interpretive.jar \
   xalan-interpretive.jar
 %else
-%{ant} \
+ant \
   -Djava.awt.headless=true \
   -Dapi.j2se=%{_javadocdir}/java \
   -Dbuild.xalan-interpretive.jar=build/xalan-interpretive.jar \
@@ -234,15 +194,6 @@ rm -rf $RPM_BUILD_ROOT
 update-alternatives --install %{_javadir}/jaxp_transform_impl.jar \
   jaxp_transform_impl %{_javadir}/%{name}.jar 30
 
-%if %{gcj_support}
-%{update_gcjdb}
-%endif
-
-%if %{gcj_support}
-%postun
-${clean_gcjdb}
-%endif
-
 %preun
 {
   [ $1 = 0 ] || exit 0
@@ -270,31 +221,11 @@ if [ "$1" = "0" ]; then
     rm -f %{_javadocdir}/%{name}
 fi
 %endif
-
-%if %{gcj_support}
-%post xsltc
-%{update_gcjdb}
-%endif
-
-%if %{gcj_support}
-%postun xsltc
-%{clean_gcjdb}
-%endif
-
-%if %{gcj_support}
-%post demo
-%{update_gcjdb}
-%endif
-
-%if %{gcj_support}
-%postun demo
-%{clean_gcjdb}
-%endif
 %endif
 
 %files
 %defattr(0644,root,root,0755)
-%doc KEYS licenses/xalan.LICENSE.txt licenses/xalan.NOTICE.txt licenses/serializer.LICENSE.txt licenses/serializer.NOTICE.txt
+%doc KEYS
 %{_javadir}/%{name}-%{version}.jar
 %{_javadir}/%{name}.jar
 %{_javadir}/%{name}-serializer-%{version}.jar
@@ -303,22 +234,12 @@ fi
 %ghost %{_javadir}/jaxp_transform_impl.jar
 %endif
 
-%if %{gcj_support}
-%dir %{_libdir}/gcj/%{name}
-%attr(-,root,root) %{_libdir}/gcj/%{name}/%{name}-%{version}.jar.*
-%attr(-,root,root) %{_libdir}/gcj/%{name}/%{name}-serializer-%{version}.jar.*
-%endif
-
 %if ! %{bootstrap}
 %files xsltc
 %defattr(0644,root,root,0755)
 %{_javadir}/xsltc-%{version}.jar
 %{_javadir}/xsltc.jar
 #%ghost %{_javadir}/jaxp_transform_impl.jar
-
-%if %{gcj_support}
-%attr(-,root,root) %{_libdir}/gcj/%{name}/xsltc-%{version}.jar.*
-%endif
 
 %files manual
 %defattr(0644,root,root,0755)
@@ -333,9 +254,6 @@ fi
 %defattr(0644,root,root,0755)
 %{_datadir}/%{name}
 
-%if %{gcj_support}
-%attr(-,root,root) %{_libdir}/gcj/%{name}/%{name}-samples.jar.*
-%endif
 %endif
 
 

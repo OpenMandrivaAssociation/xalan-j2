@@ -1,15 +1,15 @@
---- build.xml.orig	2007-02-12 13:43:06.000000000 +0100
-+++ build.xml	2007-02-12 13:46:08.000000000 +0100
-@@ -201,6 +201,8 @@
+--- xalan-j_2_7_1/build.xml.orig	2013-01-25 01:52:12.595890004 +0100
++++ xalan-j_2_7_1/build.xml	2013-01-25 01:53:23.638031876 +0100
+@@ -193,6 +193,8 @@ $Id: build.xml 563656 2007-08-07 21:12:1
+   <property name="serializer.jar.name"          value="serializer.jar"/>   
    <property name="build.serializer.jar"         value="${serializer.build.dir}/${serializer.jar.name}"/> 
    <property name="lib.serializer.jar"           value="./lib/${serializer.jar.name}"/>   
-  
-+  <property name="api.j2se" value="http://java.sun.com/j2se/1.4/docs/api/"/>
 +
++  <property name="api.j2se" value="http://java.sun.com/j2se/1.4/docs/api/"/>
+  
    <!-- Class paths used in various targets -->
    <path id="docs.class.path">
-     <pathelement location="${xmlapis.jar}" />
-@@ -1086,6 +1088,7 @@
+@@ -1054,6 +1056,7 @@ $Id: build.xml 563656 2007-08-07 21:12:1
            <group title="DOM 2" packages="org.w3c.dom*"/>
            <group title="XSLTC Core"
                   packages="org.apache.xalan.xsltc*"/>
@@ -17,7 +17,7 @@
      </javadoc>
    </target>
  
-@@ -1121,6 +1124,7 @@
+@@ -1089,6 +1092,7 @@ $Id: build.xml 563656 2007-08-07 21:12:1
            <group title="DOM 2" packages="org.w3c.dom*"/>
            <group title="XSLTC Core"
                   packages="org.apache.xalan.xsltc*"/>

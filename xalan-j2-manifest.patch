@@ -1,18 +1,10 @@
---- src/MANIFEST.MF.sav	2007-02-12 13:39:18.000000000 +0100
-+++ src/MANIFEST.MF	2007-02-12 13:40:07.000000000 +0100
-@@ -1,8 +1,6 @@
- Manifest-Version: 1.0
- Created-By: @java.version@ (@java.vendor@)
- Main-Class: org.apache.xalan.xslt.Process
--Class-Path: xercesImpl.jar xml-apis.jar serializer.jar
--
- 
- Name: org/apache/xalan/
- Comment: Main Xalan engine implementing TrAX/JAXP
-@@ -38,33 +36,3 @@
+--- xalan-j_2_7_1/src/MANIFEST.MF.orig	2013-01-25 01:48:20.188703268 +0100
++++ xalan-j_2_7_1/src/MANIFEST.MF	2013-01-25 01:49:43.388695029 +0100
+@@ -37,34 +37,3 @@ Implementation-Title: org.apache.xalan.x
+ Implementation-Version: @impl.version@
  Implementation-Vendor: Apache Software Foundation
  Implementation-URL: http://xml.apache.org/xalan-j/
- 
+-
 -Name: java_cup/runtime/ 
 -Comment: Runtime component of JCup 
 -Specification-Title: Runtime component of JCup
@@ -43,39 +35,13 @@
 -Implementation-Vendor: Apache Software Foundation
 -Implementation-URL: http://jakarta.apache.org/regexp
 -
---- src/MANIFEST.SERIALIZER.sav	2007-02-12 13:39:24.000000000 +0100
-+++ src/MANIFEST.SERIALIZER	2007-02-12 13:40:15.000000000 +0100
-@@ -1,7 +1,6 @@
- Manifest-Version: 1.0
- Created-By: @java.version@ (@java.vendor@)
- Main-Class: org.apache.xml.serializer.Version
--Class-Path: xml-apis.jar
- 
- Name: org/apache/xml/serializer/
- Comment: Serializer to write out XML, HTML etc. as a stream of characters from an input DOM or from input SAX events.
---- src/manifest.xalan-interpretive.sav	2007-02-12 13:39:31.000000000 +0100
-+++ src/manifest.xalan-interpretive	2007-02-12 13:40:24.000000000 +0100
-@@ -1,7 +1,6 @@
- Manifest-Version: 1.0
- Created-By: @java.version@ (@java.vendor@)
- Main-Class: org.apache.xalan.xslt.Process
--Class-Path: xercesImpl.jar xml-apis.jar serializer.jar
- 
- Name: org/apache/xalan/
- Comment: Main Xalan engine implementing TrAX/JAXP
---- src/manifest.xsltc.sav	2007-02-12 13:39:37.000000000 +0100
-+++ src/manifest.xsltc	2007-02-12 13:40:43.000000000 +0100
-@@ -1,6 +1,5 @@
- Manifest-Version: 1.0
- Created-By: @java.version@ (@java.vendor@)
--Class-Path: xercesImpl.jar xml-apis.jar serializer.jar
- 
- Name: org/apache/xalan/xsltc/
- Comment: Main XSLTC engine implementing TrAX/JAXP
-@@ -19,33 +18,3 @@
+--- xalan-j_2_7_1/src/manifest.xsltc.orig	2013-01-25 01:48:20.189703256 +0100
++++ xalan-j_2_7_1/src/manifest.xsltc	2013-01-25 01:50:42.756976577 +0100
+@@ -18,34 +18,3 @@ Implementation-Title: org.apache.xml
+ Implementation-Version: @impl.version@
  Implementation-Vendor: Apache Software Foundation
  Implementation-URL: http://xml.apache.org/xalan-j/dist/
- 
+-
 -Name: java_cup/runtime/
 -Comment: Runtime component of JCup 
 -Specification-Title: Runtime component of JCup
