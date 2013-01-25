@@ -25,7 +25,7 @@ Requires:       jaxp_parser_impl
 Requires(post):  update-alternatives
 Requires(preun): update-alternatives
 BuildRequires:  jpackage-utils >= 0:1.6
-BuildRequires:  java-1.6.0-openjdk-devel
+BuildRequires:  java-1.6.0-openjdk-devel java-rpmbuild
 BuildRequires:  ant
 %if ! %{bootstrap}
 BuildRequires:  java_cup
