@@ -1,5 +1,5 @@
---- src/manifest.xalan-interpretive	2011-08-10 12:38:23.892219017 -0400
-+++ src/manifest.xalan-interpretive	2011-08-10 12:38:32.032219017 -0400
+--- a/src/manifest.xalan-interpretive	2011-08-10 12:38:23.892219017 -0400
++++ a/src/manifest.xalan-interpretive	2011-08-10 12:38:32.032219017 -0400
 @@ -1,7 +1,7 @@
  Manifest-Version: 1.0
  Created-By: @java.version@ (@java.vendor@)
